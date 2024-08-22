@@ -15,9 +15,9 @@ export const SALT = process.env.SALT || "...";
 
 export const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 
-export const TOKEN_NAME = "Nuklai Token";
+export const TOKEN_NAME = "Brillion Token";
 
-export const TOKEN_SYMBOL = "NAI";
+export const TOKEN_SYMBOL = "BRLN";
 
 export const MULTISIG_ADDRESS = process.env.MULTISIG_ADDRESS || "0x0";
 

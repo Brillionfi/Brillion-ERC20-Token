@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/presets/ERC20PresetMinte
 import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol";
 
-contract NuklaiToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgradeable, ERC20PermitUpgradeable {
+contract BrillionToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgradeable, ERC20PermitUpgradeable {
     uint256 private constant VERSION = 1;
 
     // The cap or max total supply of the token.
@@ -20,7 +20,7 @@ contract NuklaiToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgrade
         __ERC20Snapshot_init_unchained();
         __ERC20Permit_init(name);
         __Pausable_init_unchained();
-        __NuklaiToken_init_unchained(cap_);
+        __BrillionToken_init_unchained(cap_);
         // We don't use __ERC20PresetMinterPauser_init_unchained to avoid giving permisions to _msgSender
         require(admin != address(0), "NAI: Admin can't be zero address");
         _setupRole(DEFAULT_ADMIN_ROLE, admin);
@@ -28,7 +28,7 @@ contract NuklaiToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgrade
         _setupRole(PAUSER_ROLE, admin);
     }
 
-    function __NuklaiToken_init_unchained(uint256 cap_) internal onlyInitializing {
+    function __BrillionToken_init_unchained(uint256 cap_) internal onlyInitializing {
         require(cap_ > 0, "NAI: cap is 0");
         _cap = cap_;
     }
@@ -102,13 +102,13 @@ contract NuklaiToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgrade
         require(recipientsLength == values.length, "NAI: Batch mint not same legth");
 
         uint256 totalValue = 0;
-        for (uint256 i = 0; i < recipientsLength;) {
+        for (uint256 i = 0; i < recipientsLength; ) {
             super._mint(recipients[i], values[i]);
             unchecked {
                 // Overflow not possible: totalValue + amount is at most totalSupply + amount, which is checked above.
                 totalValue += values[i];
+                i++;
             }
-            unchecked { i++; }
         }
 
         require(totalSupply() <= _cap, "NAI: cap exceeded");
@@ -124,5 +124,4 @@ contract NuklaiToken is ERC20PresetMinterPauserUpgradeable, ERC20SnapshotUpgrade
         require(totalSupply() + amount <= _cap, "NAI: cap exceeded");
         super._mint(account, amount);
     }
-
 }

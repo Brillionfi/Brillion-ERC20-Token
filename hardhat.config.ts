@@ -73,7 +73,7 @@ const config = {
   abiExporter: {
     path: "./abis",
     runOnCompile: true,
-    only: ["NuklaiToken"],
+    only: ["BrillionToken"],
     clear: true,
     flat: true,
   },

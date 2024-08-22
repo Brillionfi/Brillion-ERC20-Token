@@ -1,19 +1,19 @@
 import { assert, expect } from "chai";
 import { BigNumber } from "ethers";
 import { ethers, deployments } from "hardhat";
-import { NuklaiToken } from "../typechain-types";
+import { BrillionToken } from "../typechain-types";
 import { TOKEN_NAME, TOKEN_SYMBOL, MAX_TOTAL_SUPPLY } from "../utils/constants";
 
-describe("NuklaiToken", function () {
+describe("BrillionToken", function () {
   let deployer: any, admin: any, recipient: any, anotherAccount: any;
-  let token: NuklaiToken;
+  let token: BrillionToken;
 
   before(async () => {
     [deployer, admin, recipient, anotherAccount] = await ethers.getSigners();
   });
 
   beforeEach(async function () {
-    const contractName = "NuklaiToken";
+    const contractName = "BrillionToken";
     await deployments.fixture([contractName]);
     const deployedContract = await deployments.get(contractName); // Token is available because the fixture was executed
     token = await ethers.getContractAt(contractName, deployedContract.address);
@@ -55,7 +55,7 @@ describe("NuklaiToken", function () {
   });
 
   it("can't mint more than cap", async () => {
-    const amountToMint = BigNumber.from(ethers.utils.parseEther('2000000001'));
+    const amountToMint = BigNumber.from(MAX_TOTAL_SUPPLY).add(1);
     await expect(token.mint(admin.address, amountToMint)).to.be.revertedWith("NAI: cap exceeded");
   });
 

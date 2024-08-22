@@ -5,7 +5,7 @@ import { TOKEN_NAME, TOKEN_SYMBOL } from "../utils/constants";
 import { ethers } from "ethers";
 import { SALT, MAX_TOTAL_SUPPLY } from "../utils/constants";
 const version = "v2.0.0";
-const contractName = "NuklaiToken";
+const contractName = "BrillionToken";
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   async function main() {
