@@ -1,5 +1,5 @@
 {
-  "name": "allianceblock-contracts",
+  "name": "brillion-contracts",
   "version": "1.0.0",
   "description": "ERC20 contract owned by multisig wallet. Smart contract handling batch transfers. Generic Vesting smart contract.",
   "main": "index.js",

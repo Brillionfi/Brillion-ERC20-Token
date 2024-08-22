@@ -32,6 +32,14 @@ if (accounts) {
     tags: ["staging"],
   };
 
+  networks.polygonAmoy = {
+    live: true,
+    chainId: 80002,
+    url: "https://polygon-amoy-bor-rpc.publicnode.com",
+    accounts,
+    tags: ["staging"],
+  };
+
   networks.bsc = {
     live: true,
     chainId: 56,

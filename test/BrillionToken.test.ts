@@ -51,12 +51,12 @@ describe("BrillionToken", function () {
   it("can't transfer to contract address", async () => {
     const tokens = BigNumber.from(100);
     await token.mint(admin.address, tokens);
-    await expect(token.transfer(token.address, tokens)).to.be.revertedWith("NAI: Token transfer to this contract");
+    await expect(token.transfer(token.address, tokens)).to.be.revertedWith("BRLN: Token transfer to this contract");
   });
 
   it("can't mint more than cap", async () => {
     const amountToMint = BigNumber.from(MAX_TOTAL_SUPPLY).add(1);
-    await expect(token.mint(admin.address, amountToMint)).to.be.revertedWith("NAI: cap exceeded");
+    await expect(token.mint(admin.address, amountToMint)).to.be.revertedWith("BRLN: cap exceeded");
   });
 
   it("increments recipient balance", async () => {
@@ -138,7 +138,7 @@ describe("BrillionToken", function () {
 
     it("should fail to create snapshot when paused", async () => {
       await token.pause();
-      await expect(token.snapshot()).to.be.revertedWith("NAI: Contract paused");
+      await expect(token.snapshot()).to.be.revertedWith("BRLN: Contract paused");
     });
 
     it("should obtain snapshot values", async () => {
@@ -167,7 +167,7 @@ describe("BrillionToken", function () {
     });
 
     it("shouldn't create snapshot if not admin", async () => {
-      await expect(token.connect(deployer).snapshot()).to.be.revertedWith("NAI: Snapshot invalid role");
+      await expect(token.connect(deployer).snapshot()).to.be.revertedWith("BRLN: Snapshot invalid role");
     });
   });
 
@@ -209,19 +209,19 @@ describe("BrillionToken", function () {
       const recipients: string[] = [admin.address];
       const role = await token.MINTER_ROLE();
       await token.revokeRole(role, admin.address);
-      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("NAI: Batch mint invalid role");
+      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("BRLN: Batch mint invalid role");
     });
 
     it("Can't batchMint with diferent length arrays", async () => {
       const tokens: BigNumber[] = [BigNumber.from(1)];
       const recipients: string[] = [deployer.address, admin.address];
-      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("NAI: Batch mint not same legth");
+      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("BRLN: Batch mint not same legth");
     });
 
     it("Can't batchMint to contract address", async () => {
       const tokens: BigNumber[] = [BigNumber.from(1)];
       const recipients: string[] = [token.address];
-      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("NAI: Token transfer to this contract");
+      await expect(token.batchMint(recipients, tokens)).to.be.revertedWith("BRLN: Token transfer to this contract");
     });
   });
 });
